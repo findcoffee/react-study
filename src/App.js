@@ -2,6 +2,7 @@ import React, { useRef, useState, useMemo, useCallback } from "react";
 import Wrapper from "./Wrapper";
 import UserList from "./UserList";
 import CreateUser from "./CreateUser";
+import Counter from "./Counter";
 
 function countActiveUsers(users) {
   console.log("Counting.... active users");
@@ -87,6 +88,7 @@ function App() {
 
   return (
     <Wrapper>
+      <Counter />
       <CreateUser
         username={username}
         email={email}
