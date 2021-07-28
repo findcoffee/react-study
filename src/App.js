@@ -1,15 +1,8 @@
-import React, {
-  useRef,
-  useReducer,
-  useMemo,
-  useCallback,
-  createContext,
-} from "react";
+import React, { useReducer, useMemo, createContext } from "react";
 import Wrapper from "./Wrapper";
 import UserList from "./UserList";
 import CreateUser from "./CreateUser";
 import Counter from "./Counter";
-import useInputs from "./useInputs";
 
 function countActiveUsers(users) {
   console.log("Counting.... active users");
@@ -45,7 +38,7 @@ function reducer(state, action) {
     case "CREATE_USER":
       return {
         //...state,
-        inputs: initialState.inputs,
+        //inputs: initialState.inputs,
         //users: [...state.users, action.user],
         users: state.users.concat(action.user),
       };
@@ -75,28 +68,7 @@ export const UserDispatch = createContext(null);
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const nextId = useRef(4);
-  const [form, onChange, reset] = useInputs({
-    username: "",
-    email: "",
-  });
-
-  const { username, email } = form;
-
   const { users } = state;
-
-  const onCreate = useCallback(() => {
-    dispatch({
-      type: "CREATE_USER",
-      user: {
-        id: nextId.current,
-        username,
-        email,
-      },
-    });
-    nextId.current += 1;
-    reset();
-  }, [username, email, reset]);
 
   const count = useMemo(() => countActiveUsers(users), [users]);
 
@@ -104,12 +76,7 @@ function App() {
     <Wrapper>
       <UserDispatch.Provider value={dispatch}>
         <Counter />
-        <CreateUser
-          username={username}
-          email={email}
-          onChange={onChange}
-          onCreate={onCreate}
-        />
+        <CreateUser />
         <UserList users={users} />
         <div>Active users couunt : {count}</div>
       </UserDispatch.Provider>
