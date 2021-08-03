@@ -7,7 +7,7 @@ import Hello from "./Hello";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Hello name="react" isSpecial color="blue" />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

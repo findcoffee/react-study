@@ -10,7 +10,9 @@ function reducer(state, action) {
         [action.name]: action.value,
       };
     case "RESET":
+      console.log("State keys from Object keys :" + Object.keys(state));
       return Object.keys(state).reduce((key, current) => {
+        console.log("key =", key, " current = ", current);
         key[current] = "";
         return key;
       }, {});
